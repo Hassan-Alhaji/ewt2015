@@ -6,3 +6,6 @@ pip install -r requirements.txt
 
 python manage.py collectstatic --no-input
 python manage.py migrate
+
+# Seed demo data for live testing
+python seed_dummy_data.py
