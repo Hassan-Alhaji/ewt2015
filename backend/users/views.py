@@ -1157,9 +1157,10 @@ class DevLoginView(views.APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request):
-        # Only allow if debug is True to prevent production abuse
+        # Allow dev login if explicitly enabled via env var (useful for staging/demo)
         from django.conf import settings
-        if not settings.DEBUG:
+        dev_login_enabled = os.environ.get('DEV_LOGIN_ENABLED', 'True' if settings.DEBUG else 'False') == 'True'
+        if not dev_login_enabled:
             return Response({"detail": "هذه الميزة متاحة فقط في بيئة التطوير."}, status=status.HTTP_403_FORBIDDEN)
             
         role = request.data.get('role')

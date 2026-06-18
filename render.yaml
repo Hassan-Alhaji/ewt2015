@@ -30,6 +30,8 @@ services:
         value: "True"
       - key: PYTHON_VERSION
         value: "3.11.6"
+      - key: DEV_LOGIN_ENABLED
+        value: "True"
 
   # Frontend Web Service (Next.js)
   - type: web
