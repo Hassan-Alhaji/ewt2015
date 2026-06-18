@@ -160,26 +160,26 @@ def run_seed():
             {
                 "title": "[تجريبي] العضو سالم الدوسري يحقق 500 كم!",
                 "content": "نبارك للعضو المتميز سالم الدوسري تحقيقه لإنجاز 500 كيلومتر مشي منذ انضمامه للفريق. إنجاز يستحق التقدير والاحتفاء! استمر يا بطل 💪🏃",
-                "news_type": "achievement",
-                "is_approved": True,
+                "news_type": "member",
+                "status": "approved",
             },
             {
                 "title": "[تجريبي] إعلان: افتتاح التسجيل في ماراثون الشرقية",
                 "content": "يسعدنا الإعلان عن افتتاح باب التسجيل في ماراثون الشرقية السنوي 🏅\n\nالفعالية ستقام على واجهة الخبر البحرية وستشمل مسارات متنوعة تناسب جميع المستويات.\n\nسارعوا بالتسجيل!",
-                "news_type": "news",
-                "is_approved": True,
+                "news_type": "team",
+                "status": "approved",
             },
             {
                 "title": "[تجريبي] نواف العابد يكمل أول 100 كم",
                 "content": "ألف مبروك للعضو نواف العابد على إكماله أول 100 كيلومتر! بداية قوية وعزيمة لا تُقهر. نتمنى لك المزيد من الإنجازات 🌟",
-                "news_type": "achievement",
-                "is_approved": True,
+                "news_type": "member",
+                "status": "approved",
             },
             {
                 "title": "[تجريبي] نصائح للمشي في فصل الصيف",
                 "content": "مع ارتفاع درجات الحرارة، إليكم أهم النصائح:\n\n1. اختاروا الأوقات المبكرة أو المتأخرة للمشي\n2. اشربوا كميات كافية من الماء\n3. ارتدوا ملابس خفيفة وفاتحة اللون\n4. استخدموا واقي الشمس\n5. لا تنسوا القبعة والنظارات الشمسية",
-                "news_type": "news",
-                "is_approved": True,
+                "news_type": "team",
+                "status": "approved",
             },
         ]
 
@@ -190,8 +190,8 @@ def run_seed():
                     author=author,
                     title=nd["title"],
                     content=nd["content"],
-                    news_type=nd.get("news_type", "news"),
-                    is_approved=nd["is_approved"],
+                    news_type=nd.get("news_type", "member"),
+                    status=nd["status"],
                 )
         print(f"✅ {len(news_data)} news posts created.")
     else:
