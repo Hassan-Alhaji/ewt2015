@@ -1,0 +1,13 @@
+Django>=4.2,<5.3
+djangorestframework
+django-cors-headers
+django-filter
+psycopg2-binary
+pillow
+celery
+redis
+gunicorn
+whitenoise
+dj-database-url
+pandas
+openpyxl

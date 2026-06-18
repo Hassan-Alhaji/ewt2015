@@ -1,0 +1,40 @@
+databases:
+  - name: ewt-db
+    databaseName: ewt_db
+    user: ewt_user
+    plan: free
+
+services:
+  # Backend Web Service (Django)
+  - type: web
+    name: ewt-backend
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn ewt_project.wsgi:application"
+    rootDir: backend
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ewt-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: "ewt-backend.onrender.com"
+      - key: CORS_ALLOWED_ORIGINS
+        value: "https://ewt-frontend.onrender.com"
+      - key: USE_POSTGRES
+        value: "True"
+
+  # Frontend Static Site / Web Service (Next.js)
+  - type: web
+    name: ewt-frontend
+    env: node
+    buildCommand: "npm install && npm run build"
+    startCommand: "npm start"
+    rootDir: frontend
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        value: "https://ewt-backend.onrender.com"

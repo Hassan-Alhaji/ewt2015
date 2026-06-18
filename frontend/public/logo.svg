@@ -1,0 +1,7 @@
+<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="فريق الشرقية للمشي">
+  <rect width="120" height="120" rx="26" fill="#0a0a0a"/>
+  <g fill="none" stroke="#ccff00" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M26 74 Q44 34 60 58 Q76 82 94 40"/>
+    <path d="M26 90 Q44 50 60 74 Q76 98 94 56" opacity="0.55"/>
+  </g>
+</svg>
