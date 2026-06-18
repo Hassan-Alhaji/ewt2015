@@ -12,6 +12,7 @@ services:
     buildCommand: "./build.sh"
     startCommand: "gunicorn ewt_project.wsgi:application"
     rootDir: backend
+    plan: free
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -22,28 +23,24 @@ services:
       - key: DEBUG
         value: "False"
       - key: ALLOWED_HOSTS
-        fromService:
-          type: web
-          name: ewt-backend
-          property: host
+        value: ".onrender.com"
       - key: CORS_ALLOWED_ORIGINS
-        fromService:
-          type: web
-          name: ewt-frontend
-          property: url
+        value: "https://ewt-frontend.onrender.com"
       - key: USE_POSTGRES
         value: "True"
+      - key: PYTHON_VERSION
+        value: "3.11.6"
 
-  # Frontend Static Site / Web Service (Next.js)
+  # Frontend Web Service (Next.js)
   - type: web
     name: ewt-frontend
     env: node
     buildCommand: "npm install && npm run build"
     startCommand: "npm start"
     rootDir: frontend
+    plan: free
     envVars:
       - key: NEXT_PUBLIC_API_URL
-        fromService:
-          type: web
-          name: ewt-backend
-          property: url
+        value: "https://ewt-backend-t98q.onrender.com"
+      - key: NODE_VERSION
+        value: "20.11.0"

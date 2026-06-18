@@ -8,11 +8,13 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-ewt-walking-li
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 # In development allow everything; in production read an explicit comma-separated list.
-ALLOWED_HOSTS = [
-    h.strip() for h in os.environ.get(
-        'ALLOWED_HOSTS', '*' if DEBUG else 'localhost,127.0.0.1'
-    ).split(',') if h.strip()
-]
+_allowed = os.environ.get('ALLOWED_HOSTS', '*' if DEBUG else 'localhost,127.0.0.1')
+ALLOWED_HOSTS = [h.strip() for h in _allowed.split(',') if h.strip()]
+
+# Render sets RENDER_EXTERNAL_HOSTNAME automatically
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -154,8 +156,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
 
 # CORS Settings
-# Development: allow all. Production: restrict to an explicit allowlist via env
-# (CORS_ALLOWED_ORIGINS="https://app.example.com,https://www.example.com").
 CORS_ALLOW_CREDENTIALS = True
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
@@ -163,6 +163,10 @@ else:
     CORS_ALLOW_ALL_ORIGINS = False
     CORS_ALLOWED_ORIGINS = [
         o.strip() for o in os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',') if o.strip()
+    ]
+    # Allow any onrender.com subdomain automatically
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        r'^https://.*\.onrender\.com$',
     ]
 
 # DRF settings
